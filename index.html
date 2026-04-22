@@ -519,7 +519,7 @@
   .lokacija-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    min-height: calc(100vh - 200px);
+    height: 520px;
   }
   .lokacija-info {
     padding: 80px 60px;
@@ -591,6 +591,105 @@
     pointer-events: none;
   }
   .lokacija-map:hover .map-click-hint { opacity: 1; }
+
+  /* CALL BUTTON & MODAL */
+  .call-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    background: var(--espresso);
+    color: var(--ivory);
+    border: none;
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .call-btn:hover { background: var(--espresso-mid); }
+
+  .call-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(28,20,16,0.55);
+    z-index: 200;
+    align-items: center;
+    justify-content: center;
+  }
+  .call-modal-backdrop.open { display: flex; }
+  .call-modal {
+    background: var(--ivory);
+    padding: 48px;
+    text-align: center;
+    max-width: 340px;
+    width: 90%;
+    animation: fadeUp 0.25s ease both;
+  }
+  .call-modal-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--espresso);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+  }
+  .call-modal-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--espresso);
+    margin-bottom: 8px;
+  }
+  .call-modal-number {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--gold-dark);
+    letter-spacing: 0.05em;
+    margin-bottom: 32px;
+  }
+  .call-modal-actions {
+    display: flex;
+    gap: 12px;
+  }
+  .call-modal-actions a {
+    flex: 1;
+    display: block;
+    background: var(--espresso);
+    color: var(--ivory);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px;
+    text-decoration: none;
+    text-align: center;
+    transition: background 0.2s;
+  }
+  .call-modal-actions a:hover { background: var(--espresso-mid); }
+  .call-modal-actions button {
+    flex: 1;
+    background: none;
+    border: 1px solid var(--ivory-dark);
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 14px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .call-modal-actions button:hover { border-color: var(--espresso); color: var(--espresso); }
 
   /* FOOTER */
   footer {
@@ -666,18 +765,7 @@
       <div class="hero-sig animate-in">Boštjan & Aleksandra</div>
     </div>
     <div class="hero-right">
-      <div class="hero-image-placeholder">
-        <div class="hero-image-overlay">
-          <div class="hero-img-icon">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(247,243,238,0.4)" stroke-width="1.5">
-              <rect x="3" y="3" width="18" height="18" rx="1"/>
-              <circle cx="8.5" cy="8.5" r="2"/>
-              <path d="M21 15l-5-5L5 21"/>
-            </svg>
-          </div>
-          <div class="hero-image-label">salon interior photo</div>
-        </div>
-      </div>
+      <img src="salon.jpg" alt="Salon Villa interior" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;">
     </div>
   </div>
 
@@ -694,9 +782,12 @@
       <div class="info-cell-title">Pokličite nas</div>
       <p>
         Zagotovite si čas samo za vas.<br>
-        Pričakujemo vaš obisk.<br><br>
-        <a href="tel:031624802">031 624 802</a>
+        Pričakujemo vaš obisk.
       </p>
+      <button class="call-btn" onclick="showCallModal()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.24 2.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+        Pokliči: 031 624 802
+      </button>
     </div>
     <div class="info-cell">
       <div class="info-cell-label">Naslov</div>
@@ -938,6 +1029,21 @@
   </footer>
 </section>
 
+<!-- CALL MODAL -->
+<div class="call-modal-backdrop" id="call-modal" onclick="hideCallModal(event)">
+  <div class="call-modal">
+    <div class="call-modal-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--ivory)" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.24 2.18 2 2 0 012.22 0h3a2 2 0 012 1.72c.13 1 .37 1.97.72 2.9a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.18-1.18a2 2 0 012.11-.45c.93.35 1.9.59 2.9.72A2 2 0 0122 16.92z"/></svg>
+    </div>
+    <div class="call-modal-title">Pokličite nas</div>
+    <div class="call-modal-number">031 624 802</div>
+    <div class="call-modal-actions">
+      <a href="tel:031624802">Pokliči →</a>
+      <button onclick="hideCallModal()">Zapri</button>
+    </div>
+  </div>
+</div>
+
 <script>
   window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
@@ -954,6 +1060,16 @@
 
   const saved = localStorage.getItem('salonvilla_page');
   if (saved) showPage(saved);
+
+  function showCallModal() {
+    document.getElementById('call-modal').classList.add('open');
+  }
+  function hideCallModal(e) {
+    if (!e || e.target === document.getElementById('call-modal')) {
+      document.getElementById('call-modal').classList.remove('open');
+    }
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') hideCallModal(); });
 
   function openMaps() {
     if (confirm('Odprite lokacijo v Google Maps?')) {
