@@ -527,48 +527,41 @@
   .contact-row a { color: var(--text); text-decoration: none; }
   .contact-row a:hover { color: var(--gold-dark); }
   .lokacija-map {
-    background: repeating-linear-gradient(
-      90deg,
-      var(--ivory-dark),
-      var(--ivory-dark) 1px,
-      transparent 1px,
-      transparent 40px
-    ),
-    repeating-linear-gradient(
-      0deg,
-      var(--ivory-dark),
-      var(--ivory-dark) 1px,
-      transparent 1px,
-      transparent 40px
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .map-pin {
-    width: 48px;
-    height: 48px;
-    background: var(--espresso);
-    border-radius: 50% 50% 50% 0;
-    transform: rotate(-45deg);
     position: relative;
+    overflow: hidden;
+    cursor: pointer;
   }
-  .map-pin::after {
-    content: '';
+  .lokacija-map iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+    filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9);
+    pointer-events: none;
+  }
+  .map-click-overlay {
     position: absolute;
-    inset: 12px;
-    background: var(--ivory);
-    border-radius: 50%;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 32px;
   }
-  .map-label {
-    font-family: monospace;
+  .map-click-hint {
+    background: var(--espresso);
+    color: var(--ivory);
+    font-family: var(--sans);
     font-size: 11px;
+    font-weight: 500;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    color: var(--text-muted);
+    padding: 12px 24px;
+    opacity: 0;
+    transition: opacity 0.25s;
+    pointer-events: none;
   }
+  .lokacija-map:hover .map-click-hint { opacity: 1; }
 
   /* FOOTER */
   footer {
@@ -950,9 +943,14 @@
       </div>
     </div>
 
-    <div class="lokacija-map">
-      <div class="map-pin"></div>
-      <div class="map-label">Emonska cesta 8 · Ljubljana</div>
+    <div class="lokacija-map" onclick="openMaps()">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2763.47!2d14.4996783!3d46.0458905!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47652d65c3cfa15b:0xee392b9c74e40e36!2sEmonska+cesta+8%2C+1000+Ljubljana!5e0!3m2!1sen!2ssi!4v1"
+        allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+      <div class="map-click-overlay">
+        <div class="map-click-hint">Odpri v Google Maps →</div>
+      </div>
     </div>
   </div>
 
@@ -981,6 +979,12 @@
 
   const saved = localStorage.getItem('salonvilla_page');
   if (saved) showPage(saved);
+
+  function openMaps() {
+    if (confirm('Odprite lokacijo v Google Maps?')) {
+      window.open('https://www.google.com/maps/place/Emonska+cesta+8,+1000+Ljubljana/@46.0458905,14.4996783,17z/data=!3m1!4b1!4m6!3m5!1s0x47652d65c3cfa15b:0xee392b9c74e40e36!8m2!3d46.0458868!4d14.5022532!16s%2Fg%2F11q2ngbkmk?entry=ttu&g_ep=EgoyMDI2MDQxOS4wIKXMDSoASAFQAw%3D%3D', '_blank');
+    }
+  }
 </script>
 </body>
 </html>
