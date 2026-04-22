@@ -562,8 +562,8 @@
   .contact-row a:hover { color: var(--gold-dark); }
   .lokacija-map {
     position: relative;
-    overflow: hidden;
     cursor: pointer;
+    padding: 0 48px 60px 0;
   }
   .lokacija-map iframe {
     width: 100%;
@@ -572,6 +572,11 @@
     display: block;
     filter: invert(90%) hue-rotate(180deg) saturate(0.85) brightness(0.9);
     pointer-events: none;
+    position: absolute;
+    top: -32px;
+    left: 0;
+    width: calc(100% - 48px);
+    height: calc(100% - 60px + 32px);
   }
   .map-click-overlay {
     position: absolute;
