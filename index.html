@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salon Villa — Frizerski salon Ljubljana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ivory: #f7f3ee;
+    --ivory-dark: #ede8e0;
+    --espresso: #1c1410;
+    --espresso-mid: #3a2e26;
+    --gold: oklch(72% 0.08 68);
+    --gold-light: oklch(88% 0.05 68);
+    --gold-dark: oklch(55% 0.08 68);
+    --text: #2a201a;
+    --text-muted: #7a6b60;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--ivory);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    height: 80px;
+    background: var(--ivory);
+    border-bottom: 1px solid var(--ivory-dark);
+    transition: box-shadow 0.3s;
+  }
+  nav.scrolled { box-shadow: 0 2px 24px rgba(28,20,16,0.07); }
+
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    color: var(--espresso);
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .nav-logo span { color: var(--gold-dark); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links li a, .nav-links li button {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    position: relative;
+    transition: color 0.2s;
+  }
+  .nav-links li button::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 1px;
+    background: var(--gold-dark);
+    transform: scaleX(0);
+    transition: transform 0.25s;
+  }
+  .nav-links li button:hover { color: var(--espresso); }
+  .nav-links li button:hover::after,
+  .nav-links li button.active::after { transform: scaleX(1); }
+  .nav-links li button.active { color: var(--espresso); }
+
+  .nav-cta {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--espresso);
+    color: var(--ivory);
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--espresso-mid); }
+
+  /* PAGES */
+  .page { display: none; padding-top: 80px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* ===================== O SALONU ===================== */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 80px);
+  }
+  .hero-left {
+    padding: 100px 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .hero-eyebrow {
+    font-family: var(--sans);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 28px;
+  }
+  .hero-title {
+    font-family: var(--serif);
+    font-size: clamp(46px, 5vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--espresso);
+    margin-bottom: 32px;
+  }
+  .hero-title em { font-style: italic; color: var(--gold-dark); }
+  .hero-body {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: var(--text-muted);
+    max-width: 460px;
+    margin-bottom: 20px;
+  }
+  .hero-sig {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--espresso-mid);
+    margin-top: 36px;
+  }
+
+  .hero-right {
+    position: relative;
+    background: var(--espresso);
+    overflow: hidden;
+  }
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: repeating-linear-gradient(
+      45deg,
+      #1c1410,
+      #1c1410 10px,
+      #231a14 10px,
+      #231a14 20px
+    );
+    opacity: 0.95;
+  }
+  .hero-image-label {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: rgba(247,243,238,0.25);
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .hero-image-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+  .hero-img-icon {
+    width: 60px;
+    height: 60px;
+    border: 1px solid rgba(247,243,238,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Info strip */
+  .info-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1px solid var(--ivory-dark);
+  }
+  .info-cell {
+    padding: 56px 60px;
+    border-right: 1px solid var(--ivory-dark);
+  }
+  .info-cell:last-child { border-right: none; }
+  .info-cell-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 20px;
+  }
+  .info-cell-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 16px;
+  }
+  .info-cell p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 2;
+    color: var(--text-muted);
+  }
+  .info-cell a {
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .info-cell a:hover { color: var(--espresso); }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--ivory-dark);
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row span:last-child { color: var(--espresso); font-weight: 400; }
+
+  /* ===================== STORITVE ===================== */
+  .page-header {
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--ivory-dark);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .page-header-left .page-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 16px;
+  }
+  .page-header-title {
+    font-family: var(--serif);
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    color: var(--espresso);
+    line-height: 1.1;
+  }
+  .page-header-title em { font-style: italic; }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .service-category {
+    padding: 56px 60px;
+    border-right: 1px solid var(--ivory-dark);
+    border-bottom: 1px solid var(--ivory-dark);
+  }
+  .service-category:nth-child(3n) { border-right: none; }
+  .service-cat-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--ivory-dark);
+  }
+  .service-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--ivory-dark);
+    gap: 16px;
+  }
+  .service-item:last-child { border-bottom: none; }
+  .service-name {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+  .service-price {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--espresso);
+    white-space: nowrap;
+  }
+
+  .gift-voucher {
+    margin: 0 60px 80px;
+    padding: 60px;
+    background: var(--espresso);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 40px;
+  }
+  .gift-title {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--ivory);
+    margin-bottom: 12px;
+  }
+  .gift-title em { font-style: italic; color: var(--gold-light); }
+  .gift-body {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(247,243,238,0.6);
+    max-width: 480px;
+  }
+  .btn-outline-light {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 16px 32px;
+    border: 1px solid rgba(247,243,238,0.4);
+    color: var(--ivory);
+    background: none;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-outline-light:hover {
+    background: rgba(247,243,238,0.1);
+    border-color: rgba(247,243,238,0.7);
+  }
+
+  /* ===================== PRODUKTI ===================== */
+  .products-intro {
+    padding: 60px;
+    max-width: 680px;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.9;
+    color: var(--text-muted);
+    border-bottom: 1px solid var(--ivory-dark);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .product-card {
+    border-right: 1px solid var(--ivory-dark);
+    border-bottom: 1px solid var(--ivory-dark);
+    padding: 48px 40px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .product-card:hover { background: var(--ivory-dark); }
+  .product-card:nth-child(4n) { border-right: none; }
+  .product-img {
+    width: 100%;
+    aspect-ratio: 1;
+    background: repeating-linear-gradient(
+      -45deg,
+      var(--ivory-dark),
+      var(--ivory-dark) 6px,
+      var(--ivory) 6px,
+      var(--ivory) 12px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-family: monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 16px;
+  }
+  .product-brand {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 8px;
+  }
+  .product-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 10px;
+  }
+  .product-desc {
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.7;
+    color: var(--text-muted);
+  }
+
+  /* ===================== GALERIJA ===================== */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px;
+  }
+  .gallery-item {
+    aspect-ratio: 4/3;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--espresso),
+      var(--espresso) 8px,
+      var(--espresso-mid) 8px,
+      var(--espresso-mid) 16px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s;
+  }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(28,20,16,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .gallery-overlay-text {
+    font-family: var(--sans);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ivory);
+  }
+  .gallery-placeholder-label {
+    font-family: monospace;
+    font-size: 10px;
+    color: rgba(247,243,238,0.2);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 16px;
+  }
+  .gallery-item.tall { grid-row: span 2; }
+  .gallery-item.wide { grid-column: span 2; }
+
+  /* ===================== LOKACIJA ===================== */
+  .lokacija-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: calc(100vh - 200px);
+  }
+  .lokacija-info {
+    padding: 80px 60px;
+    border-right: 1px solid var(--ivory-dark);
+  }
+  .lokacija-address {
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--espresso);
+    margin-bottom: 48px;
+  }
+  .contact-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--ivory-dark);
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+  }
+  .contact-row:last-of-type { border-bottom: none; }
+  .contact-row-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    width: 60px;
+    flex-shrink: 0;
+  }
+  .contact-row a { color: var(--text); text-decoration: none; }
+  .contact-row a:hover { color: var(--gold-dark); }
+  .lokacija-map {
+    background: repeating-linear-gradient(
+      90deg,
+      var(--ivory-dark),
+      var(--ivory-dark) 1px,
+      transparent 1px,
+      transparent 40px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      var(--ivory-dark),
+      var(--ivory-dark) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .map-pin {
+    width: 48px;
+    height: 48px;
+    background: var(--espresso);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    position: relative;
+  }
+  .map-pin::after {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    background: var(--ivory);
+    border-radius: 50%;
+  }
+  .map-label {
+    font-family: monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--espresso);
+    padding: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ivory);
+  }
+  .footer-logo span { color: var(--gold-light); }
+  .footer-tagline {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(247,243,238,0.35);
+    margin-top: 8px;
+  }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(247,243,238,0.3);
+    font-weight: 300;
+    text-align: right;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .page.active .animate-in {
+    animation: fadeUp 0.6s ease both;
+  }
+  .page.active .animate-in:nth-child(2) { animation-delay: 0.1s; }
+  .page.active .animate-in:nth-child(3) { animation-delay: 0.2s; }
+  .page.active .animate-in:nth-child(4) { animation-delay: 0.3s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo" onclick="showPage('o-salonu')">Salon <span>Villa</span></div>
+  <ul class="nav-links">
+    <li><button onclick="showPage('o-salonu')" class="active" id="nav-o-salonu">O Salonu</button></li>
+    <li><button onclick="showPage('storitve')" id="nav-storitve">Storitve</button></li>
+    <li><button onclick="showPage('produkti')" id="nav-produkti">Produkti</button></li>
+    <li><button onclick="showPage('galerija')" id="nav-galerija">Galerija</button></li>
+    <li><button onclick="showPage('lokacija')" id="nav-lokacija">Lokacija</button></li>
+  </ul>
+  <button class="nav-cta" onclick="showPage('lokacija')">Rezervacija →</button>
+</nav>
+
+<!-- ===================== O SALONU ===================== -->
+<section class="page active" id="page-o-salonu">
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow animate-in">Frizerski salon · Ljubljana</div>
+      <h1 class="hero-title animate-in">
+        Izurjeni za <em>lepoto</em><br>in domiselno<br>spretni
+      </h1>
+      <p class="hero-body animate-in">
+        S predanostjo pristopamo k vašim preobrazbam – diskretnim ali vpadljivim, za v službo ali za zabavo. Lotevamo se jih strokovno in z velikim užitkom. Z izredno izurjenostjo, domišljijo in zavidljivo spretnostjo gradimo vaše zaupanje.
+      </p>
+      <p class="hero-body animate-in">
+        Imamo oko za podrobnosti in smisel za natančnost. Zdrav las je za nas poglavitnega pomena – je temelj lepega videza.
+      </p>
+      <div class="hero-sig animate-in">Boštjan & Aleksandra</div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-image-placeholder">
+        <div class="hero-image-overlay">
+          <div class="hero-img-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="rgba(247,243,238,0.4)" stroke-width="1.5">
+              <rect x="3" y="3" width="18" height="18" rx="1"/>
+              <circle cx="8.5" cy="8.5" r="2"/>
+              <path d="M21 15l-5-5L5 21"/>
+            </svg>
+          </div>
+          <div class="hero-image-label">salon interior photo</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="info-strip">
+    <div class="info-cell">
+      <div class="info-cell-label">Delovni čas</div>
+      <div class="info-cell-title">Urnik</div>
+      <div class="hours-row"><span>Ponedeljek – Petek</span><span>8:00 – 19:00</span></div>
+      <div class="hours-row"><span>Sobota</span><span>8:00 – 15:00</span></div>
+      <div class="hours-row"><span>Nedelja</span><span>Zaprto</span></div>
+    </div>
+    <div class="info-cell">
+      <div class="info-cell-label">Rezervacije</div>
+      <div class="info-cell-title">Pokličite nas</div>
+      <p>
+        Zagotovite si čas samo za vas.<br>
+        Pričakujemo vaš obisk.<br><br>
+        <a href="tel:031624802">031 624 802</a>
+      </p>
+    </div>
+    <div class="info-cell">
+      <div class="info-cell-label">Naslov</div>
+      <div class="info-cell-title">Pridite k nam</div>
+      <p>
+        Emonska cesta 8<br>
+        1000 Ljubljana<br><br>
+        <a href="mailto:info@salonvilla.si">info@salonvilla.si</a>
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-logo">Salon <span>Villa</span></div>
+      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
+    </div>
+    <div class="footer-copy">
+      © 2009–2026 Salon Villa<br>Vse pravice pridržane.
+    </div>
+  </footer>
+</section>
+
+<!-- ===================== STORITVE ===================== -->
+<section class="page" id="page-storitve">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">Frizerski salon Villa</div>
+      <h1 class="page-header-title">Storitve &<br><em>Cenik</em></h1>
+    </div>
+    <p style="font-size:14px;font-weight:300;color:var(--text-muted);max-width:320px;line-height:1.8;text-align:right;">
+      Vsaka storitev je prilagojena vašim željam in posebnostim vaših las.
+    </p>
+  </div>
+
+  <div class="services-grid">
+    <div class="service-category">
+      <div class="service-cat-title">Striženje</div>
+      <div class="service-item"><span class="service-name">Striženje las – ženske</span><span class="service-price">od 22 €</span></div>
+      <div class="service-item"><span class="service-name">Striženje las – moški</span><span class="service-price">od 14 €</span></div>
+      <div class="service-item"><span class="service-name">Striženje las – otroci</span><span class="service-price">od 10 €</span></div>
+      <div class="service-item"><span class="service-name">Frizura s sušenjem</span><span class="service-price">od 18 €</span></div>
+      <div class="service-item"><span class="service-name">Frizura z likanjem</span><span class="service-price">od 22 €</span></div>
+    </div>
+    <div class="service-category">
+      <div class="service-cat-title">Barvanje</div>
+      <div class="service-item"><span class="service-name">Barvanje las (cela glava)</span><span class="service-price">od 38 €</span></div>
+      <div class="service-item"><span class="service-name">Barvanje odrastkov</span><span class="service-price">od 28 €</span></div>
+      <div class="service-item"><span class="service-name">Meliranje</span><span class="service-price">od 45 €</span></div>
+      <div class="service-item"><span class="service-name">Balayage</span><span class="service-price">od 65 €</span></div>
+      <div class="service-item"><span class="service-name">Ombre / Sombre</span><span class="service-price">od 55 €</span></div>
+    </div>
+    <div class="service-category">
+      <div class="service-cat-title">Nega las</div>
+      <div class="service-item"><span class="service-name">Globinska nega</span><span class="service-price">od 18 €</span></div>
+      <div class="service-item"><span class="service-name">Keratinska obdelava</span><span class="service-price">od 80 €</span></div>
+      <div class="service-item"><span class="service-name">Botoks za lase</span><span class="service-price">od 60 €</span></div>
+      <div class="service-item"><span class="service-name">Olaplex tretma</span><span class="service-price">od 25 €</span></div>
+    </div>
+    <div class="service-category">
+      <div class="service-cat-title">Trajna &<br>Ravnanje</div>
+      <div class="service-item"><span class="service-name">Trajna ondulacija</span><span class="service-price">od 48 €</span></div>
+      <div class="service-item"><span class="service-name">Ravnanje las</span><span class="service-price">od 55 €</span></div>
+      <div class="service-item"><span class="service-name">Japonsko ravnanje</span><span class="service-price">od 90 €</span></div>
+    </div>
+    <div class="service-category">
+      <div class="service-cat-title">Posebne<br>priložnosti</div>
+      <div class="service-item"><span class="service-name">Poročna frizura</span><span class="service-price">od 65 €</span></div>
+      <div class="service-item"><span class="service-name">Preizkusna frizura</span><span class="service-price">od 45 €</span></div>
+      <div class="service-item"><span class="service-name">Zvečerna frizura</span><span class="service-price">od 40 €</span></div>
+      <div class="service-item"><span class="service-name">Pričeska z nastavki</span><span class="service-price">od 35 €</span></div>
+    </div>
+    <div class="service-category">
+      <div class="service-cat-title">Dodatno</div>
+      <div class="service-item"><span class="service-name">Šamponiranje</span><span class="service-price">5 €</span></div>
+      <div class="service-item"><span class="service-name">Sušenje s puhalom</span><span class="service-price">od 10 €</span></div>
+      <div class="service-item"><span class="service-name">Konzultacija</span><span class="service-price">Brezplačno</span></div>
+      <div class="service-item"><span class="service-name">Darilni bon</span><span class="service-price">Po izbiri</span></div>
+    </div>
+  </div>
+
+  <div class="gift-voucher">
+    <div>
+      <div class="gift-title">Darilni <em>bon</em></div>
+      <p class="gift-body">
+        Podarite izkušnjo, ki jo bo obdarjenec nosil s ponosom. Darilni boni Salon Villa so dostopni v poljubni vrednosti – idealno darilo za vsako priložnost.
+      </p>
+    </div>
+    <button class="btn-outline-light" onclick="showPage('lokacija')">Pokličite nas →</button>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-logo">Salon <span>Villa</span></div>
+      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
+    </div>
+    <div class="footer-copy">© 2009–2026 Salon Villa</div>
+  </footer>
+</section>
+
+<!-- ===================== PRODUKTI ===================== -->
+<section class="page" id="page-produkti">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">Profesionalna kozmetika</div>
+      <h1 class="page-header-title">Naši <em>produkti</em></h1>
+    </div>
+  </div>
+
+  <div class="products-intro">
+    V Salon Villa izbiramo izključno profesionalne izdelke, ki zagotavljajo edinstveno nego za povrnitev in ohranitev zdravja vaših las. Vsak produkt je skrbno izbran za optimalne rezultate.
+  </div>
+
+  <div class="products-grid">
+    <div class="product-card">
+      <div class="product-img">product shot<br>šampon</div>
+      <div class="product-brand">Wella Professionals</div>
+      <div class="product-name">Šamponi za lase</div>
+      <p class="product-desc">Profesionalni šamponi za vse tipe las, prilagojeni individualnim potrebam.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>balzam</div>
+      <div class="product-brand">Wella Professionals</div>
+      <div class="product-name">Balzami & maske</div>
+      <p class="product-desc">Intenzivna nega za sijočne, zdrave in mehke lase.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>olaplex</div>
+      <div class="product-brand">Olaplex</div>
+      <div class="product-name">Olaplex tretma</div>
+      <p class="product-desc">Revolucionarni sistem za obnovo in zaščito poškodovanih las.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>serum</div>
+      <div class="product-brand">Kerastase</div>
+      <div class="product-name">Serumi & olji</div>
+      <p class="product-desc">Lahki serumi za sijaj in zaščito pred vročino ter zunanjimi vplivi.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>stilizacija</div>
+      <div class="product-brand">Schwarzkopf</div>
+      <div class="product-name">Stilizacijski produkti</div>
+      <p class="product-desc">Lakiranje, pena, vosek in drugi produkti za oblikovanje frizure.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>barvanje</div>
+      <div class="product-brand">Wella Koleston</div>
+      <div class="product-name">Barve za lase</div>
+      <p class="product-desc">Profesionalne barve za trajno in polno barvo z dolgoobstojnim sijajem.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>nega lasišča</div>
+      <div class="product-brand">Nioxin</div>
+      <div class="product-name">Nega lasišča</div>
+      <p class="product-desc">Specializirani produkti za zdravo lasišče in gostejše lase.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img">product shot<br>toplotna zaščita</div>
+      <div class="product-brand">Redken</div>
+      <div class="product-name">Toplotna zaščita</div>
+      <p class="product-desc">Zaščita las pred poškodbami pri likanju in sušenju.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-logo">Salon <span>Villa</span></div>
+      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
+    </div>
+    <div class="footer-copy">© 2009–2026 Salon Villa</div>
+  </footer>
+</section>
+
+<!-- ===================== GALERIJA ===================== -->
+<section class="page" id="page-galerija">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">Naše delo</div>
+      <h1 class="page-header-title"><em>Galerija</em></h1>
+    </div>
+  </div>
+
+  <div class="gallery-grid">
+    <div class="gallery-item wide" style="aspect-ratio:auto;height:320px;">
+      <div class="gallery-placeholder-label">salon interior / team photo</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">haircut result</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">color result</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">balayage result</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item wide" style="aspect-ratio:auto;height:320px;">
+      <div class="gallery-placeholder-label">bridal hair / wedding styling</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">ombre result</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">keratin treatment</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+    <div class="gallery-item" style="height:320px;">
+      <div class="gallery-placeholder-label">updo / evening style</div>
+      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-logo">Salon <span>Villa</span></div>
+      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
+    </div>
+    <div class="footer-copy">© 2009–2026 Salon Villa</div>
+  </footer>
+</section>
+
+<!-- ===================== LOKACIJA ===================== -->
+<section class="page" id="page-lokacija">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-eyebrow">Ljubljana</div>
+      <h1 class="page-header-title">Lokacija &<br><em>Kontakt</em></h1>
+    </div>
+  </div>
+
+  <div class="lokacija-grid">
+    <div class="lokacija-info">
+      <div class="lokacija-address">
+        Emonska cesta 8<br>
+        1000 Ljubljana
+      </div>
+
+      <div class="contact-row">
+        <span class="contact-row-label">Tel</span>
+        <a href="tel:031624802">031 624 802</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">Email</span>
+        <a href="mailto:info@salonvilla.si">info@salonvilla.si</a>
+      </div>
+      <div class="contact-row">
+        <span class="contact-row-label">Splet</span>
+        <span>www.salonvilla.si</span>
+      </div>
+
+      <div style="margin-top:48px;">
+        <div class="info-cell-label" style="margin-bottom:16px;">Delovni čas</div>
+        <div class="hours-row"><span>Ponedeljek – Petek</span><span>8:00 – 19:00</span></div>
+        <div class="hours-row"><span>Sobota</span><span>8:00 – 15:00</span></div>
+        <div class="hours-row"><span>Nedelja</span><span>Zaprto</span></div>
+      </div>
+
+      <div style="margin-top:48px;">
+        <div class="info-cell-label" style="margin-bottom:16px;">Rezervacija</div>
+        <p style="font-size:14px;font-weight:300;line-height:1.8;color:var(--text-muted);margin-bottom:24px;">
+          Pokličite nas in si zagotovite čas samo za vas. Pričakujemo vaš obisk.
+        </p>
+        <a href="tel:031624802" style="display:inline-block;background:var(--espresso);color:var(--ivory);font-size:11px;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:14px 28px;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#3a2e26'" onmouseout="this.style.background='#1c1410'">
+          Pokliči zdaj →
+        </a>
+      </div>
+    </div>
+
+    <div class="lokacija-map">
+      <div class="map-pin"></div>
+      <div class="map-label">Emonska cesta 8 · Ljubljana</div>
+    </div>
+  </div>
+
+  <footer>
+    <div>
+      <div class="footer-logo">Salon <span>Villa</span></div>
+      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
+    </div>
+    <div class="footer-copy">© 2009–2026 Salon Villa</div>
+  </footer>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.getElementById('nav-' + id).classList.add('active');
+    window.scrollTo({ top: 0 });
+    localStorage.setItem('salonvilla_page', id);
+  }
+
+  const saved = localStorage.getItem('salonvilla_page');
+  if (saved) showPage(saved);
+</script>
+</body>
+</html>
