@@ -407,37 +407,30 @@
   }
   .products-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
   .product-card {
     border-right: 1px solid var(--ivory-dark);
     border-bottom: 1px solid var(--ivory-dark);
-    padding: 48px 40px;
+    padding: 60px 60px;
     cursor: pointer;
     transition: background 0.2s;
   }
   .product-card:hover { background: var(--ivory-dark); }
-  .product-card:nth-child(4n) { border-right: none; }
+  .product-card:nth-child(2n) { border-right: none; }
   .product-img {
     width: 100%;
-    aspect-ratio: 1;
-    background: repeating-linear-gradient(
-      -45deg,
-      var(--ivory-dark),
-      var(--ivory-dark) 6px,
-      var(--ivory) 6px,
-      var(--ivory) 12px
-    );
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    margin-bottom: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 24px;
-    font-family: monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    letter-spacing: 0.1em;
-    text-align: center;
-    padding: 16px;
+  }
+  .product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
   }
   .product-brand {
     font-size: 10px;
@@ -818,9 +811,8 @@
 
     /* PRODUKTI */
     .products-intro { padding: 32px 24px; }
-    .products-grid { grid-template-columns: 1fr 1fr; }
-    .product-card { padding: 28px 20px; }
-    .product-card:nth-child(4n) { border-right: 1px solid var(--ivory-dark); }
+    .products-grid { grid-template-columns: 1fr; }
+    .product-card { padding: 32px 24px; border-right: none; }
     .product-card:nth-child(2n) { border-right: none; }
 
     /* LOKACIJA */
@@ -1029,52 +1021,16 @@
 
   <div class="products-grid">
     <div class="product-card">
-      <div class="product-img">product shot<br>šampon</div>
-      <div class="product-brand">Wella Professionals</div>
-      <div class="product-name">Šamponi za lase</div>
-      <p class="product-desc">Profesionalni šamponi za vse tipe las, prilagojeni individualnim potrebam.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>balzam</div>
-      <div class="product-brand">Wella Professionals</div>
-      <div class="product-name">Balzami & maske</div>
-      <p class="product-desc">Intenzivna nega za sijočne, zdrave in mehke lase.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>olaplex</div>
-      <div class="product-brand">Olaplex</div>
-      <div class="product-name">Olaplex tretma</div>
-      <p class="product-desc">Revolucionarni sistem za obnovo in zaščito poškodovanih las.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>serum</div>
-      <div class="product-brand">Kerastase</div>
-      <div class="product-name">Serumi & olji</div>
-      <p class="product-desc">Lahki serumi za sijaj in zaščito pred vročino ter zunanjimi vplivi.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>stilizacija</div>
-      <div class="product-brand">Schwarzkopf</div>
-      <div class="product-name">Stilizacijski produkti</div>
-      <p class="product-desc">Lakiranje, pena, vosek in drugi produkti za oblikovanje frizure.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>barvanje</div>
-      <div class="product-brand">Wella Koleston</div>
-      <div class="product-name">Barve za lase</div>
-      <p class="product-desc">Profesionalne barve za trajno in polno barvo z dolgoobstojnim sijajem.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>nega lasišča</div>
-      <div class="product-brand">Nioxin</div>
-      <div class="product-name">Nega lasišča</div>
-      <p class="product-desc">Specializirani produkti za zdravo lasišče in gostejše lase.</p>
-    </div>
-    <div class="product-card">
-      <div class="product-img">product shot<br>toplotna zaščita</div>
+      <div class="product-img"><img src="redken.png" alt="Redken"></div>
       <div class="product-brand">Redken</div>
-      <div class="product-name">Toplotna zaščita</div>
-      <p class="product-desc">Zaščita las pred poškodbami pri likanju in sušenju.</p>
+      <div class="product-name">Redken</div>
+      <p class="product-desc">Profesionalna linija za nego las — šamponi, balzami in stilizacijski produkti za vse tipe las.</p>
+    </div>
+    <div class="product-card">
+      <div class="product-img"><img src="john-masters.png" alt="John Masters Organics"></div>
+      <div class="product-brand">John Masters Organics</div>
+      <div class="product-name">John Masters Organics</div>
+      <p class="product-desc">Naravna organska kozmetika za lase in telo — čista, trajnostna in nežna za lasišče.</p>
     </div>
   </div>
 
