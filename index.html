@@ -282,6 +282,14 @@
   }
   .page-header-title em { font-style: italic; }
 
+  .storitve-hero {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    object-position: center 30%;
+    display: block;
+  }
+
   .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -616,10 +624,8 @@
     <li><button onclick="showPage('o-salonu')" class="active" id="nav-o-salonu">O Salonu</button></li>
     <li><button onclick="showPage('storitve')" id="nav-storitve">Storitve</button></li>
     <li><button onclick="showPage('produkti')" id="nav-produkti">Produkti</button></li>
-    <li><button onclick="showPage('galerija')" id="nav-galerija">Galerija</button></li>
     <li><button onclick="showPage('lokacija')" id="nav-lokacija">Lokacija</button></li>
   </ul>
-  <button class="nav-cta" onclick="showPage('lokacija')">Rezervacija →</button>
 </nav>
 
 <!-- ===================== O SALONU ===================== -->
@@ -704,6 +710,8 @@
       Vsaka storitev je prilagojena vašim željam in posebnostim vaših las.
     </p>
   </div>
+
+  <img src="hero.png" alt="Salon Villa" class="storitve-hero">
 
   <div class="services-grid">
     <div class="service-category">
@@ -831,59 +839,6 @@
       <div class="product-brand">Redken</div>
       <div class="product-name">Toplotna zaščita</div>
       <p class="product-desc">Zaščita las pred poškodbami pri likanju in sušenju.</p>
-    </div>
-  </div>
-
-  <footer>
-    <div>
-      <div class="footer-logo">Salon <span>Villa</span></div>
-      <div class="footer-tagline">Izurjeni za lepoto in domiselno spretni</div>
-    </div>
-    <div class="footer-copy">© 2009–2026 Salon Villa</div>
-  </footer>
-</section>
-
-<!-- ===================== GALERIJA ===================== -->
-<section class="page" id="page-galerija">
-  <div class="page-header">
-    <div class="page-header-left">
-      <div class="page-eyebrow">Naše delo</div>
-      <h1 class="page-header-title"><em>Galerija</em></h1>
-    </div>
-  </div>
-
-  <div class="gallery-grid">
-    <div class="gallery-item wide" style="aspect-ratio:auto;height:320px;">
-      <div class="gallery-placeholder-label">salon interior / team photo</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">haircut result</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">color result</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">balayage result</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item wide" style="aspect-ratio:auto;height:320px;">
-      <div class="gallery-placeholder-label">bridal hair / wedding styling</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">ombre result</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">keratin treatment</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
-    </div>
-    <div class="gallery-item" style="height:320px;">
-      <div class="gallery-placeholder-label">updo / evening style</div>
-      <div class="gallery-overlay"><span class="gallery-overlay-text">Zoom</span></div>
     </div>
   </div>
 
