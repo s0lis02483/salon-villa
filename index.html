@@ -284,21 +284,31 @@
 
   .storitve-header {
     display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: stretch;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
     border-bottom: 1px solid var(--ivory-dark);
     overflow: hidden;
+    padding: 60px;
+    gap: 40px;
   }
   .storitve-header .page-header {
     border-bottom: none;
+    padding: 0;
   }
   .storitve-hero {
     display: block;
-    height: 100%;
-    max-height: 260px;
+    max-height: 240px;
     width: auto;
-    object-fit: cover;
-    object-position: center top;
+    object-fit: contain;
+    justify-self: center;
+  }
+  .storitve-subtitle {
+    font-size: 14px;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.8;
+    text-align: right;
+    align-self: center;
   }
 
   .services-grid {
@@ -718,11 +728,9 @@
         <div class="page-eyebrow">Frizerski salon Villa</div>
         <h1 class="page-header-title">Storitve &<br><em>Cenik</em></h1>
       </div>
-      <p style="font-size:14px;font-weight:300;color:var(--text-muted);max-width:320px;line-height:1.8;text-align:right;">
-        Vsaka storitev je prilagojena vašim željam in posebnostim vaših las.
-      </p>
     </div>
     <img src="hero.png" alt="Salon Villa" class="storitve-hero">
+    <p class="storitve-subtitle">Vsaka storitev je prilagojena vašim željam in posebnostim vaših las.</p>
   </div>
 
   <div class="services-grid">
